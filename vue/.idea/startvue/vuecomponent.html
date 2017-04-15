@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-component</title>
+</head>
+<body>
+<div id="component">
+    <child v-html="msg"></child>
+
+    <!--解决DOM解析问题-->
+    <table>
+        <tr is="child1"></tr>
+    </table>
+
+    <!--构造组件-->
+    <child3 msg3="gouzao"></child3>
+
+    <!-- 内部切换组件-->
+    <input v-model="current">
+
+    <component v-if="current=='child'" v-bind:is="current" msg="ninini"></component>
+    <component v-else v-bind:is="current"></component>
+
+    <button v-on:click="childbtn">childbtn</button>
+    <button v-on:click="child1btn">childbtn1</button>
+    <button v-on:click="child2btn">childbtn2</button>
+</div>
+<a href="../morevue/index.html">宝宝可以进阶咯</a>
+<script src="js/vue.js"></script>
+<script>
+   //独立建立组件
+    Vue.component('child3',{
+        props:['msg3'],
+        template:'<p>{{msg3}}</p>'
+    });
+   //内部组件切换
+    var child={
+        props:['msg'],
+        template:"<p>{{msg}}</p>"
+    };
+    var child1={
+        template:"<p>nihao</p>"
+    };
+      //组件嵌套
+    var child2={
+        template:"<p>child2<chridren></chridren></p>",
+        components:{
+            'chridren':child1
+        }
+    };
+
+
+
+    new Vue({
+        el:"#component",
+        data:{
+            msg:"宝宝来咯",
+            current:'child2'
+        },
+        components:{
+            'child':child,
+            'child1':child1,
+            'child2':child2
+        },
+        methods:{
+            childbtn:function(){
+                this.current='child'
+            },
+            child1btn:function(){
+                this.current='child1'
+            },
+            child2btn:function(){
+                this.current='child2'
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

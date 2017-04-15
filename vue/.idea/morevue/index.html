@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>morevue</title>
+</head>
+<body>
+<h3>好的，宝宝进阶了</h3>
+<div id="more">
+   <button v-on:click="show=!show">toggle</button>
+    <transition name="fade">
+        <p v-if="show">fade</p>
+    </transition>
+</div>
+<script src="../startvue/js/vue.js"></script>
+<script>
+    new Vue({
+        el:"#more",
+        data:{
+            show:true
+        }
+    })
+</script>
+</body>
+</html>
